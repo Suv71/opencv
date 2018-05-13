@@ -20,13 +20,12 @@ C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\К�
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\bin\Debug\ZedGraph.xml
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\bin\Debug\zh-CN\Emgu.CV.UI.resources.dll
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\bin\Debug\zh-CN\ZedGraph.resources.dll
-C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.csprojResolveAssemblyReference.cache
-C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\MainWindow.g.cs
+C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\View\MainWindow.g.cs
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\App.g.cs
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace_Content.g.cs
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace_MarkupCompile.cache
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace_MarkupCompile.lref
-C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\MainWindow.baml
+C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\View\MainWindow.baml
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.g.resources
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.Properties.Resources.resources
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.csproj.GenerateResource.Cache
