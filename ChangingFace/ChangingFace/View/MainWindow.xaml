@@ -15,9 +15,13 @@
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="62*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="738,324,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="buttonAdd" Content="Добавить" HorizontalAlignment="Left" Margin="811,252,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1"/>
         <Image x:Name="userImage" Source="{Binding UserImage}" HorizontalAlignment="Left" Height="429" Margin="31,33,0,0" VerticalAlignment="Top" Width="507" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Image x:Name="userImage_Copy" HorizontalAlignment="Left" Height="231" Margin="648,33,0,0" VerticalAlignment="Top" Width="238" Grid.Column="1" Grid.RowSpan="2"/>
+        <Image x:Name="detectedFace" Source="{Binding DetectedFace}" HorizontalAlignment="Left" Height="231" Margin="648,33,0,0" VerticalAlignment="Top" Width="238" Grid.Column="1" Grid.RowSpan="2"/>
+        <TextBlock x:Name="userIamgeTextBlock" HorizontalAlignment="Left" Margin="31,10,0,0" TextWrapping="Wrap" Text="Изображение с камеры:" VerticalAlignment="Top" RenderTransformOrigin="-10.48,-2.375" Grid.ColumnSpan="2" Width="149" Height="18"/>
+        <TextBlock x:Name="detectedFaceTextBlock" HorizontalAlignment="Left" Margin="648,10,0,0" TextWrapping="Wrap" Text="Обнаруженное лицо:" VerticalAlignment="Top" RenderTransformOrigin="-10.48,-2.375" Width="149" Height="18" Grid.Column="1"/>
+        <TextBox x:Name="usernameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="766,207,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" ToolTip="Здесь должно быть имя пользователя" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="username" HorizontalAlignment="Left" Margin="687,208,0,0" TextWrapping="Wrap" Text="Имя:" VerticalAlignment="Top" RenderTransformOrigin="-10.48,-2.375" Width="47" Height="18" Grid.Column="1" Grid.Row="1"/>
 
     </Grid>
 </Window>

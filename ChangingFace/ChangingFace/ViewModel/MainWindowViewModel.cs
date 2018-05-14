@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using ChangingFace.Model;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.Util;
@@ -21,6 +22,25 @@ namespace ChangingFace.ViewModel
         private DispatcherTimer _timer;
         private CascadeClassifier _faceClassifier;
 
+        private SimpleCommand _addCommand;
+
+        public SimpleCommand AddCommand
+        {
+            get
+            {
+                return _addCommand ??
+                    (_addCommand = new SimpleCommand(
+                        obj =>
+                                {
+
+                                },
+                        obj =>
+                                {
+                                    return true;
+                                }));
+            }
+        }
+
         private BitmapSource _userImage;
 
         public BitmapSource UserImage
@@ -30,6 +50,18 @@ namespace ChangingFace.ViewModel
             {
                 _userImage = value;
                 OnPropertyChanged("UserImage");
+            }
+        }
+
+        private BitmapSource _detectedFace;
+
+        public BitmapSource DetectedFace
+        {
+            get { return _detectedFace; }
+            set
+            {
+                _detectedFace = value;
+                OnPropertyChanged("DetectedFace");
             }
         }
 
@@ -58,6 +90,7 @@ namespace ChangingFace.ViewModel
         private void _timer_Tick(object sender, EventArgs e)
         {
             var currentFrameMat = new Mat();
+            Image<Bgr, byte> detectedFace = null;
             _camera.Read(currentFrameMat);
 
             if (!currentFrameMat.IsEmpty)
@@ -71,8 +104,13 @@ namespace ChangingFace.ViewModel
                 foreach (var face in detectedFaces)
                 {
                     currentFrame.Draw(face, new Bgr(0, double.MaxValue, 0), 3);
+                    detectedFace = currentFrame.GetSubRect(face);
                 }
                 UserImage = ToBitmapSource(currentFrame);
+                if (detectedFace != null)
+                {
+                    DetectedFace = ToBitmapSource(detectedFace);
+                }
             }
         }
 
