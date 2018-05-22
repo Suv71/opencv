@@ -41,3 +41,4 @@ C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\К�
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.csproj.CoreCompileInputs.cache
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.exe
 C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.pdb
+C:\Users\Дед Мазай\Desktop\магистратура 2 семестр\Курсач\opencv\ChangingFace\ChangingFace\obj\Debug\ChangingFace.csprojResolveAssemblyReference.cache

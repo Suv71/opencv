@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using ChangingFace.Model;
 using Emgu.CV;
+using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using Emgu.Util;
 
@@ -21,6 +23,37 @@ namespace ChangingFace.ViewModel
         private VideoCapture _camera;
         private DispatcherTimer _timer;
         private CascadeClassifier _faceClassifier;
+        private byte[] detectedFaceBytes;
+        private Image<Gray, byte> detectedFaceForRecognizer;
+        private const string _databasePath = @"Faces.db3";
+        private const string _faceRecognizerPath = @"Recognizer.yaml";
+        private IDataStoreAccess _dataStoreAccess;
+        private EigenFaceRecognizer _faceRecognizer;
+
+
+        private string _username;
+
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                _username = value;
+                OnPropertyChanged("Username");
+            }
+        }
+
+        private string _recognizedFace;
+
+        public string RecognizedFace
+        {
+            get { return _recognizedFace; }
+            set
+            {
+                _recognizedFace = value;
+                OnPropertyChanged("RecognizedFace");
+            }
+        }
 
         private SimpleCommand _addCommand;
 
@@ -32,12 +65,49 @@ namespace ChangingFace.ViewModel
                     (_addCommand = new SimpleCommand(
                         obj =>
                                 {
-
+                                    var result = _dataStoreAccess.SaveFace(Username, detectedFaceBytes);
+                                    MessageBox.Show(result, "Результат сохранения", MessageBoxButton.OK);
                                 },
                         obj =>
                                 {
-                                    return true;
+                                    var result = false;
+                                    if (!string.IsNullOrEmpty(Username))
+                                    {
+                                        result = true;
+                                    }
+                                    
+                                    return result;
                                 }));
+            }
+        }
+
+        private SimpleCommand _trainCommand;
+
+        public SimpleCommand TrainCommand
+        {
+            get
+            {
+                return _trainCommand ??
+                    (_trainCommand = new SimpleCommand(
+                        obj =>
+                        {
+                            TrainRecognizer();
+                        }));
+            }
+        }
+
+        private SimpleCommand _recognizeCommand;
+
+        public SimpleCommand RecognizeCommand
+        {
+            get
+            {
+                return _recognizeCommand ??
+                    (_recognizeCommand = new SimpleCommand(
+                        obj =>
+                        {
+                            Recognize();
+                        }));
             }
         }
 
@@ -74,7 +144,48 @@ namespace ChangingFace.ViewModel
 
         public MainWindowViewModel()
         {
+            _dataStoreAccess = new DataStoreAccess(_databasePath);
+            if (File.Exists(_faceRecognizerPath))
+            {
+                _faceRecognizer = new EigenFaceRecognizer();
+                _faceRecognizer.Read(_faceRecognizerPath);
+            }
+            else
+            {
+                _faceRecognizer = new EigenFaceRecognizer();
+            }
             InitializeFaceDetection();
+        }
+
+        private void Recognize()
+        {
+            _faceRecognizer.Read(_faceRecognizerPath);
+            var result = _faceRecognizer.Predict(detectedFaceForRecognizer);
+            if (result.Label != 0)
+            {
+                RecognizedFace = _dataStoreAccess.GetUserName(result.Label);
+            }
+        }
+
+        private void TrainRecognizer()
+        {
+            var allFaces = _dataStoreAccess.GetFaces("ALL_USERS").ToList();
+            if (allFaces != null)
+            {
+                var faceImages = new Image<Gray, byte>[allFaces.Count()];
+                var faceUserIds = new int[allFaces.Count()];
+                for (int i = 0; i < allFaces.Count(); i++)
+                {
+                    //var stream = new MemoryStream();
+                    //stream.Write(allFaces[i].Image, 0, allFaces[i].Image.Length);
+                    var faceImage = new Image<Gray, byte>(100, 100);
+                    faceImage.Bytes = allFaces[i].Image;
+                    faceImages[i] = faceImage;
+                    faceUserIds[i] = allFaces[i].UserId;
+                }
+                _faceRecognizer.Train(faceImages, faceUserIds);
+                _faceRecognizer.Write(_faceRecognizerPath);
+            }
         }
 
         private void InitializeFaceDetection()
@@ -109,6 +220,8 @@ namespace ChangingFace.ViewModel
                 UserImage = ToBitmapSource(currentFrame);
                 if (detectedFace != null)
                 {
+                    detectedFaceForRecognizer = detectedFace.Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                    detectedFaceBytes = detectedFaceForRecognizer.Bytes;
                     DetectedFace = ToBitmapSource(detectedFace);
                 }
             }
